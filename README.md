@@ -32,7 +32,9 @@ index: true|
 |password|string|null: false|
 
 ### Association
-- has_many :groups through: :members
+- has_many :groups, through: :members
+- has_many :members, through: :groups
+- has_many :message, through: :members
 
 ## membersテーブル
 |Column|Type|Options|
@@ -41,8 +43,6 @@ index: true|
 |group_id|references|null: false, foreign_key: true|
 
 ### Association
-- belongs_to :group
-- has_many :messages
 - belongs_to :user
 
 ### groupsテーブル
@@ -50,11 +50,12 @@ index: true|
 |------|----|-------|
 |name|string|null: false,
 index: true|
-|member_id|integer||null: false, foreign_key: true|
-|user_id|integer|null: false,foreign_key: true|
 
 ### Association
 - has_many :users, through: :members
+- has_many :members, through: :groups
+- has_many :messages, through: :members
+
 
 #messagesテーブル
 |Column|Type|Options|
@@ -65,6 +66,6 @@ index: true|
 |group_id|references||null: false, foreign_key: true|
 
 ### Association
-- belongs_to :group
-- belongs_to :user
+- belongs_to :group 
+- belongs_to :user 
 
