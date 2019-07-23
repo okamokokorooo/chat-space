@@ -48,7 +48,8 @@ index: true|
 ### groupsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|name|string|null: false|
+|name|string|null: false,
+index: true|
 |member_id|integer||null: false, foreign_key: true|
 |user_id|integer|null: false,foreign_key: true|
 
@@ -58,8 +59,8 @@ index: true|
 #messagesテーブル
 |Column|Type|Options|
 |------|----|-------|
-|text|string||
-|image|string||
+|text|string|
+|image|string|
 |user_id|references|null: false, foreign_key: true|
 |group_id|references||null: false, foreign_key: true|
 
