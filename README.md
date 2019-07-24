@@ -33,8 +33,8 @@ index: true|
 
 ### Association
 - has_many :groups, through: :members
-- has_many :members, through: :groups
-- has_many :message, through: :members
+- has_many :members
+- has_many :message
 
 ## membersテーブル
 |Column|Type|Options|
@@ -44,7 +44,7 @@ index: true|
 
 ### Association
 - belongs_to :user
-
+- belongs_to :group
 ### groupsテーブル
 |Column|Type|Options|
 |------|----|-------|
@@ -53,8 +53,8 @@ index: true|
 
 ### Association
 - has_many :users, through: :members
-- has_many :members, through: :groups
-- has_many :messages, through: :members
+- has_many :members
+- has_many :messages
 
 
 #messagesテーブル
