@@ -5,25 +5,20 @@ $(function(){
     var html =`<div class="message">
                 <div class="message1">
                   <div class="message1__name">
-                    <%= message.user.name %>
+                    ${message.user.name}
                   </div>
-                  <div class="message1__date">
-                    <%= message.created_at.strftime("%Y/%m/%d %H:%M") %>
-                  </div>
-                </div>
-                <div class="message2">
-                  <% if message.content.present? %>
-                    <div class="message2__text">
-                      <%= message.content %>
+                    <div class="message1__date">
+                      ${message.created_at.strftime("%Y/%m/%d %H:%M")}
                     </div>
-                  <% end %>
-                  <%= image_tag message.image.url, class: 'message2__image' if message.image.present? %>
-                </div>
-              </div>`
+                  <div class="message2">
+                    ${message.content}
+                  </div>`
     return html;
   }
   $('#new_comment').on('submit', function(e){
     e.preventDefault();
+    var message = new FormData(this);
+    var url = $(this).attr('action');
     $ajax({
       url: url,
       type: 'POST',
@@ -31,6 +26,14 @@ $(function(){
       dataType: 'json',
       processData: false,
       contentType: false,
+    })
+    .done(function(data){
+      var html = buildHTML(data);
+      $(`.messages`).append(html);
+      $('#message_content')[0].reset();
+    })
+    .fail(function(data){
+      alert('エラーが発生したためメッセージは送信できませんでした');
     })
   })
 });
