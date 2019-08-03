@@ -7,13 +7,12 @@ $(function(){
                   <div class="message1__name">
                     ${message.user.name}
                   </div>
-                  <div class="message1__date">
-                    ${message.created_at.strftime("%Y/%m/%d %H:%M")}
-                  </div>
-                </div>
-                <div class="message2">
-                  ${message.content}
-                </div>`
+                    <div class="message1__date">
+                      ${message.created_at.strftime("%Y/%m/%d %H:%M")}
+                    </div>
+                  <div class="message2">
+                    ${message.content}
+                  </div>`
     return html;
   }
   $('#new_comment').on('submit', function(e){
@@ -31,7 +30,7 @@ $(function(){
     .done(function(data){
       var html = buildHTML(data);
       $(`.messages`).append(html);
-      $('#message_content').val('');
+      $('#message_content')[0].reset();
     })
     .fail(function(data){
       alert('エラーが発生したためメッセージは送信できませんでした');
