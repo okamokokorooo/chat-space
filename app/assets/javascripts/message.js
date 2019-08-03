@@ -34,7 +34,7 @@ $(function(){
       $('#message_content').val('');
     })
     .fail(function(data){
-      alert('エラーが発生したためメッセージは送信できませんでした')
+      alert('エラーが発生したためメッセージは送信できませんでした');
     })
   })
 });
