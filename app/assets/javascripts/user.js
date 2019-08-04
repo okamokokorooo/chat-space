@@ -1,32 +1,55 @@
-$(function(){
-function appendUser(user){
-  var html =`<div class="chat-group-user clearfix">
-              <p class="chat-group-user__name">ユーザー名</p>
-              <div class="user-search-add chat-group-user__btn chat-group-user__btn--add" data-user-id="ユーザーのid" data-user-name="ユーザー名">追加</div>
-            </div>`
-            
-}
-  $("chat-group-form__field--right").on("keyup", function(user){
-      var input = $("chat-group-form__field--right").val();
-    $.ajax({
-      type: 'GET',
-      url: '/users/index',
-      data: { keyword: input },
-      dataType: 'json'
-    })
-    .done(function(users){
-      $(".chat-group-form__field--right").empty();
-      if (users.length !== 0){
-        products.forEach(function(user){
-          appendUser(user);
-        });
-      }
-      else{
-        appendemptyToHTML("");
-      }
-    })
-    .fail(function(users){
-      alert('エラーが発生したため、検索できません');
-    })
+$(function () {
+  var search_list = $("#user_search_result");
+
+   function appendUsers(user) {
+      var html =
+      user_list.append(html); `<div class="chat-group-user clearfix">
+      <p class="chat-group-user__name">${user.name}</p>
+      <div class="user-search-add chat-group-user__btn chat-group-user__btn--add" data-user-id="${user.id} "data-user-name="${user.name}">追加</div>
+    </div>`
+    search_list.append(html);
+  }
+  
+   function appendMembers(name, user_id) {
+      var html =`<div class="chat-group-user clearfix">
+      <p class="chat-group-user__name">${user.name}</p>
+      <div class="user-search-add chat-group-user__btn chat-group-user__btn--add" data-user-id= "${user.id} "data-user-name="${user.name}">削除</div>
+    </div>`
+      member_list.append(html);
+  }
+
+   $(function () {
+      $(".chat-group-form__input").on("keyup", function () {
+          var input = $("#user-search-field").val();
+          $.ajax({
+            type: 'GET',
+            url: '/users',
+            data: { keyword: input },
+            dataType: 'json'
+          })
+          .done(function (members) {
+              $("#user_search_result").empty();
+              if (members.length !== 0) {
+                  members.forEach(function (user) {
+                      appendUsers(user);
+                  })
+              }
+          })
+          .fail(function () {
+              alert('ユーザー検索に失敗しました');
+          });
+      });
   });
-});
+
+   $(function () {
+      $(document).on("click", '.user_search_add', function () {
+          var name = $(this).attr("data-user-name");
+          var user_id = $(this).attr("data-user-id");
+          $(this).parent().remove();
+          appendMembers(name, user_id);
+      });
+      $(document).on("click", '.user_search_remove', function () {
+          $(this).parent().remove();
+      });
+    });
+}); 
