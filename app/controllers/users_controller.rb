@@ -1,5 +1,13 @@
 class UsersController < ApplicationController
   class UsersController < ApplicationController
+    def index
+      @users = User.where('name LIKE(?)', "%#{params[:keyword]}%")
+      respond_to do |f|
+      format.html
+      format.json
+      end
+    end
+
     def edit
     end
   
