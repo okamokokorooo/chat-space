@@ -2,24 +2,24 @@ $(function(){
   function buildHTML(message) {
     var content = message.content ? `${ message.content }` : "";
     var img = message.image ? `<img src= ${ message.image }>` : "";
-    var html =`<div class="message">
+    var html =`<div class="message" data-id="${message.id}">
                 <div class="message1">
                   <div class="message1__name">
-                    ${message.user.name}
+                    ${message.name}
                   </div>
                     <div class="message1__date">
-                      ${message.created_at.strftime("%Y/%m/%d %H:%M")}
+                      ${message.date}
                     </div>
                   <div class="message2">
                     ${message.content}
                   </div>`
     return html;
   }
-  $('#new_comment').on('submit', function(e){
+  $('#new_message').on('submit', function(e){
     e.preventDefault();
     var message = new FormData(this);
     var url = $(this).attr('action');
-    $ajax({
+    $.ajax({
       url: url,
       type: 'POST',
       data: message,
@@ -30,7 +30,10 @@ $(function(){
     .done(function(data){
       var html = buildHTML(data);
       $(`.messages`).append(html);
-      $('#message_content')[0].reset();
+      $('#message_content').val("");
+      $('.form__textfield').val('');
+      $('.form__submit').prop('disabled', false);
+
     })
     .fail(function(data){
       alert('エラーが発生したためメッセージは送信できませんでした');
