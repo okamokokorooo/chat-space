@@ -1,9 +1,6 @@
 $(function(){
   function buildHTML(message) {
-    var Image = '';
-        if (message.image.url) {
-            Image = `<img src="${message.image.url}">`;
-        }
+     var Image= (message.image.url) ? `<img class= "message2__image" src=${message.image} >` : "";
     var html =`<div class="message" data-message-id="${message.id}">
                 <div class="message1">
                   <div class="message1__name">
@@ -16,7 +13,7 @@ $(function(){
                     <div class="message2__text">
                       ${message.content}
                       ${Image}
-                    </div>
+                     </div>
                   </div>`
     return html;
   }
@@ -56,13 +53,12 @@ $(function(){
         data: {id: last_message_id} 
       })
       .done(function (messages) {
-        console.log(messages);
         var insertHTML = '';
         messages.forEach(function (message) {
           insertHTML = buildHTML(message);
         $('.messages').append(insertHTML);
-        })
         $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+        })
         })
       .fail(function (messages) {
         alert('自動更新に失敗しました');
