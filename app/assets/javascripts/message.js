@@ -33,7 +33,7 @@ $(function(){
     })
     .done(function(data){
       var html = buildHTML(data);
-      $('.messages').append(html);
+      $('.chat').append(html);
       $('#message_content').val("");
       $('.form__textfield').val('');
       $('.form__submit').prop('disabled', false);
@@ -67,6 +67,4 @@ $(function(){
   }
   setInterval(reloadMessages, 5000);
   });
-
-   
 
