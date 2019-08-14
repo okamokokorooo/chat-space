@@ -27,7 +27,7 @@ set :keep_releases, 5
 
 set :linked_files, %w{ config/secrets.yml }
 
-aafter 'deploy:publishing', 'deploy:restart'
+after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   task :restart do
     invoke 'unicorn:restart'
