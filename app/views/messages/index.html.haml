@@ -7,6 +7,8 @@
           = @group.name
         .left-box__member
           Member:
+          - @group.group_users.each do |group_user|
+            = group_user.user.name
       .right-box
         .right-box__button
           %a(href="edit")Edit
